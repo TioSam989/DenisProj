@@ -1,9 +1,13 @@
 <?php
 include_once('./conexao.php'); //incluindo conexao com db
 include_once('./funcs.php'); //importando minhas funcoes
-session_start(); //adicionando isso pra poder usar sessoes em php
-?>
+ 
+session_start();
 
+if(isset($_SESSION['admin'])){
+    header('Location: ./paineladmin.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +15,7 @@ session_start(); //adicionando isso pra poder usar sessoes em php
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
+    <title>REGISTAR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.1.5/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>

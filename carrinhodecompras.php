@@ -1,3 +1,12 @@
+<?php 
+session_start();
+
+if(isset($_SESSION['admin'])){
+    header('Location: ./paineladmin.php');
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

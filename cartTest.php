@@ -4,10 +4,9 @@ include("./funcs.php");
 session_start();
 
 if (isset($_SESSION['admin'])) {
-    header('location: ./index.php');
+    header('location: ./paineladmin.php');
 } elseif (!isset($_SESSION['user'])) {
     header('location: ./index.php');
-
 }
 ?>
 

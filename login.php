@@ -1,7 +1,13 @@
-<?php
+<?php 
+session_start();
+
+if(isset($_SESSION['admin'])){
+    header('Location: ./paineladmin.php');
+}
+
 include_once('./conexao.php'); //incluindo conexao com db
 include_once('./funcs.php'); //importando minhas funcoes
-session_start(); //adicionando isso pra poder usar sessoes em php
+
 ?>
 
 <!DOCTYPE html>
