@@ -1,43 +1,41 @@
-<?php 
-
-include_once("./conexao.php");
-function alertar($msg){
-    echo '<script>alert("'.$msg.'")</script>';
-
-}
-
 <?php
 
-// Function to establish a database connection
-function connectToDatabase()
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "calinsalajanbd";
+
+// Cria a conexão com o banco de dados
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+function alertar($msg)
 {
-    $host = 'localhost';
-    $username = 'your_username';
-    $password = 'your_password';
-    $database = 'your_database';
+    echo '<script>alert("' . $msg . '")</script>';
+}
 
-    if (!$conn) {
-        die('Database connection failed: ' . mysqli_connect_error());
-    }
-
-    return $conn;
+function consolar($msg)
+{
+    echo '<script>console.log("' . $msg . '")</script>';
 }
 
 // Function to add a product to the cart
 function addToCart($userId, $productId, $quantity)
 {
 
-    $existingCartItemQuery = "SELECT * FROM cart WHERE user_id = $userId AND product_id = $productId";
+    global $conn;
+
+
+    $existingCartItemQuery = "SELECT * FROM carrinho WHERE user_id = $userId AND product_id = $productId";
     $existingCartItemResult = mysqli_query($conn, $existingCartItemQuery);
 
     if (mysqli_num_rows($existingCartItemResult) > 0) {
         $existingCartItem = mysqli_fetch_assoc($existingCartItemResult);
         $newQuantity = $existingCartItem['quantity'] + $quantity;
 
-        $updateQuantityQuery = "UPDATE cart SET quantity = $newQuantity WHERE id = " . $existingCartItem['id'];
+        $updateQuantityQuery = "UPDATE carrinho SET quantity = $newQuantity WHERE id = " . $existingCartItem['id'];
         mysqli_query($conn, $updateQuantityQuery);
     } else {
-        $insertCartItemQuery = "INSERT INTO cart (user_id, product_id, quantity) VALUES ($userId, $productId, $quantity)";
+        $insertCartItemQuery = "INSERT INTO carrinho (user_id, product_id, quantidade) VALUES ($userId, $productId, $quantity)";
         mysqli_query($conn, $insertCartItemQuery);
     }
 
@@ -47,7 +45,10 @@ function addToCart($userId, $productId, $quantity)
 // Function to remove a product from the cart
 function removeFromCart($userId, $productId)
 {
-    $deleteCartItemQuery = "DELETE FROM cart WHERE user_id = $userId AND product_id = $productId";
+
+    global $conn;
+
+    $deleteCartItemQuery = "DELETE FROM carrinho WHERE user_id = $userId AND product_id = $productId";
     mysqli_query($conn, $deleteCartItemQuery);
 
     mysqli_close($conn);
@@ -56,20 +57,24 @@ function removeFromCart($userId, $productId)
 // Function to clear the cart
 function clearCart($userId)
 {
-    $deleteCartItemsQuery = "DELETE FROM cart WHERE user_id = $userId";
-    mysqli_query($conn, $deleteCartItemsQuery);
 
+    global $conn;
+
+    $deleteCartItemsQuery = "DELETE FROM carrinho WHERE user_id = $userId";
+    mysqli_query($conn, $deleteCartItemsQuery);
     mysqli_close($conn);
 }
 
 // Function to get the total quantity of products in the cart
 function getCartTotalQuantity($userId)
 {
-    $totalQuantityQuery = "SELECT SUM(quantity) AS total_quantity FROM cart WHERE user_id = $userId";
+    global $conn;
+
+    $totalQuantityQuery = "SELECT SUM(quantidade) AS total_quantidade FROM carrinho WHERE user_id = $userId";
     $totalQuantityResult = mysqli_query($conn, $totalQuantityQuery);
     $totalQuantityRow = mysqli_fetch_assoc($totalQuantityResult);
 
-    $totalQuantity = $totalQuantityRow['total_quantity'];
+    $totalQuantity = $totalQuantityRow['total_quantidade'];
 
     mysqli_close($conn);
 
@@ -79,8 +84,11 @@ function getCartTotalQuantity($userId)
 // Function to get the cart items with product details
 function getCartItems($userId)
 {
-    $cartItemsQuery = "SELECT cart.product_id, products.name, products.image, cart.quantity FROM cart 
-                       JOIN products ON cart.product_id = products.id
+
+    global $conn;
+
+    $cartItemsQuery = "SELECT cart.product_id, products.nome, products.image, cart.quantidade FROM carrinho 
+                       JOIN produtos ON cart.product_id = products.id
                        WHERE cart.user_id = $userId";
     $cartItemsResult = mysqli_query($conn, $cartItemsQuery);
 
@@ -95,10 +103,10 @@ function getCartItems($userId)
     return $cartItems;
 }
 
-function getProductById($productId)
+function getProductById($conn, $productId)
 {
-    // Connect to your MySQL database
-    $conn = mysqli_connect('localhost', 'username', 'password', 'database_name');
+
+
 
     // Check the connection
     if (!$conn) {
@@ -106,7 +114,7 @@ function getProductById($productId)
     }
 
     // Prepare the query
-    $query = "SELECT * FROM products WHERE id = $productId";
+    $query = "SELECT * FROM produtos WHERE id = $productId";
 
     // Execute the query
     $result = mysqli_query($conn, $query);
@@ -129,4 +137,3 @@ function getProductById($productId)
 }
 
 ?>
-
