@@ -23,6 +23,18 @@ if (isset($_SESSION['admin'])) {
 </head>
 
 <body>
+
+    <header class="header">
+
+        <a href="index.php" class="logo">Calin Salajan</a>
+
+        <div id="menu-btn" class="fas fa-bars"></div>
+
+    </header>
+    <div class="separador" style="background-color: white">
+
+    </div>
+
     <?php
     $userId = $_SESSION["user"];
     $cartItems = [];
@@ -114,7 +126,9 @@ if (isset($_SESSION['admin'])) {
 
             <div class="totals-item totals-item-total">
                 <label>Total Carrinho</label>
-                <div class="totals-value" id="cart-total"><?php echo $totalPrice; ?></div>
+                <div class="totals-value" id="cart-total">
+                    <?php echo $totalPrice; ?>
+                </div>
             </div>
         </div>
 

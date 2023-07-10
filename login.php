@@ -19,7 +19,16 @@ session_start(); //adicionando isso pra poder usar sessoes em php
 </head>
 
 <body>
+    <header class="header">
 
+        <a href="index.php" class="logo">Calin Salajan</a>
+
+        <div id="menu-btn" class="fas fa-bars"></div>
+
+    </header>
+    <div class="separador" style="background-color: white">
+
+    </div>
     <?php
     if ($conn) {
 
@@ -84,7 +93,8 @@ session_start(); //adicionando isso pra poder usar sessoes em php
 
                 <div class="row">
                     <div class="content">
-                        <p>Ainda não possui uma conta ? clique <a style="color: blue;" href="./registar.php">aqui</a> para criar uma </p>
+                        <p>Ainda não possui uma conta ? clique <a style="color: blue;" href="./registar.php">aqui</a> para criar
+                            uma </p>
                     </div>
             </section>
 
