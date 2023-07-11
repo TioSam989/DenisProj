@@ -24,14 +24,13 @@ if (isset($_SESSION['admin'])) {
 <body>
 
     <header class="header">
-
-        <a href="index.php" class="logo">Calin Salajan</a>
-
+        <a href="index.php" class="logo">Calin Salajan</a>]
         <div id="menu-btn" class="fas fa-bars"></div>
-
+        <script
+            src="https://www.paypal.com/sdk/js?client-id=AdwOppQQiMLgWQtFlbETJttiVo7yKWj-2hJnz1YBpO1rfFohoU275is9ZUHWzDwBtBPGKlOIPSdxFS4q&currency=EUR"
+            data-namespace="paypal_sdk"></script>
     </header>
     <div class="separador" style="background-color: white">
-
     </div>
 
     <?php
@@ -129,13 +128,57 @@ if (isset($_SESSION['admin'])) {
                     <?php echo $totalPrice; ?>
                 </div>
             </div>
+
         </div>
 
-        <button class="checkout">Checkout</button>
+
+        <div id="paypal-button-container"></div>
+
+        <script>
+            // Render the PayPal button into #paypal-button-container
+            paypal_sdk.Buttons({
+                // Set up the transaction
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '<?php echo $totalPrice; ?>'
+                            }
+                        }]
+                    });
+                },
+                // Finalize the transaction
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (orderData) {
+                        // Successful capture! For demo purposes:
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        var transaction = orderData.purchase_units[0].payments.captures[0];
+                        alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                        // Make a GET request to your page.php with the userid parameter
+                        var userid = '<?php echo $userId ?>'; // Replace with the actual userid value
+                        var url = 'checkout.php?userid=' + encodeURIComponent(userid);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', url, true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                // Handle the response from page.php
+                                console.log(xhr.responseText);
+                            }
+                        };
+                        xhr.send();
+                        location.reload(); //coloquei mas depois q ter ajax tem q tirar
+                    });
+                }
+            }).render('#paypal-button-container');
+        </script>
+
+
 
     </div>
 
-    <!-- <div class="shopping-cart"> no</div> -->
+    meh
+
 
 </body>
 
