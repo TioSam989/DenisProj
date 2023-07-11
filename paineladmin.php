@@ -45,7 +45,7 @@ if(!isset($_SESSION['admin'])){
 <br>
 
 <section>
-    
+    <?php include('usersPage.php'); ?>
 </section>
 
 
