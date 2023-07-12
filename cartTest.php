@@ -22,7 +22,6 @@ if (isset($_SESSION['admin'])) {
 </head>
 
 <body>
-
     <header class="header">
         <a href="index.php" class="logo">Calin Salajan</a>]
         <div id="menu-btn" class="fas fa-bars"></div>
@@ -30,6 +29,7 @@ if (isset($_SESSION['admin'])) {
             src="https://www.paypal.com/sdk/js?client-id=AdwOppQQiMLgWQtFlbETJttiVo7yKWj-2hJnz1YBpO1rfFohoU275is9ZUHWzDwBtBPGKlOIPSdxFS4q&currency=EUR"
             data-namespace="paypal_sdk"></script>
     </header>
+
     <div class="separador" style="background-color: white">
     </div>
 

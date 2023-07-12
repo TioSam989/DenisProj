@@ -38,13 +38,13 @@ function addToCart($userId, $productId, $quantity)
 
             $atualIdDoCarrinho = $resultItemDoCarrinho['id'];
             $result = mysqli_query($conn, "UPDATE carrinho SET quantidade  = quantidade + $quantity WHERE id = $atualIdDoCarrinho;");
-            echo '<script>window.location.href = "./cartTest.php";</script>';
+            echo '<script>window.location.href = "./carrinhodecompras.php";</script>';
             exit();
 
         } else { //senao adiciona no carrinho ja com quantidade desejada
 
             $result = mysqli_query($conn, "INSERT INTO carrinho (user_id, product_id, quantidade) VALUES ('$userId', '$productId', '$quantity');");
-            echo '<script>window.location.href = "./cartTest.php";</script>';
+            echo '<script>window.location.href = "./carrinhodecompras.php";</script>';
             exit();
 
         }
@@ -52,7 +52,7 @@ function addToCart($userId, $productId, $quantity)
     } else { //senao tiver nada no carrinho, entao adiciona no carrinho ja com quantidade desejada
 
         $result = mysqli_query($conn, "INSERT INTO carrinho (user_id, product_id, quantidade) VALUES ('$userId', '$productId', '$quantity');");
-        echo '<script>window.location.href = "./cartTest.php";</script>';
+        echo '<script>window.location.href = "./carrinhodecompras.php";</script>';
         exit();
 
 
