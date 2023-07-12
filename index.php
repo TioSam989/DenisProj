@@ -1,7 +1,8 @@
-<?php 
+<?php
 session_start();
-
-if(isset($_SESSION['admin'])){
+include_once('conexao.php');
+include_once('funcs.php');
+if (isset($_SESSION['admin'])) {
     header('Location: ./paineladmin.php');
 }
 ?>
@@ -253,36 +254,59 @@ if(isset($_SESSION['admin'])){
         <h1 class="heading"><span>Produtos</span> </h1>
 
         <div class="box-container">
+            <?php
 
-            <div class="box">
-                <h3 class="title">Caneta Calin Salajan</h3>
-                <br>
-                <img src="image/PINTOR.webp" alt="">
-                <br>
-                <br>
-                <p>2,99€</p>
-                <a href="carrinhodecompras.php" class="btn">Adicionar Ao Carrinho</a>
-            </div>
+            if(isset($_POST['submitBtnProduct'])){
+                $crrUserId = $_SESSION['user'];
+                $crrProduct = $_POST['productId'];
+                addToCart($crrUserId, $crrProduct, '1');
+                
+            }else{
 
-            <div class="box">
-                <h3 class="title">Tshirt Calin Salajan</h3>
-                <br>
-                <img src="image/PINTOR.webp" alt="">
-                <br>
-                <br>
-                <p>9,99€</p>
-                <a href="carrinhodecompras.php" class="btn">Adicionar Ao Carrinho</a>
-            </div>
 
-            <div class="box">
-                <h3 class="title">Caneca Calin Salajan</h3>
-                <br>
-                <img src="image/PINTOR.webp" alt="">
-                <br>
-                <br>
-                <p>4,99€</p>
-                <a href="carrinhodecompras.php" class="btn">Adicionar Ao Carrinho</a>
-            </div>
+            $sql = "SELECT * FROM produtos";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $productId = $row['id'];
+                    $productName = $row['nome'];
+                    $productImage = $row['img'];
+                    $productPrice = $row['preco'];
+
+                    consolar($productId);
+                    ?>
+
+                    <div class="box">
+                        <h3 class="title">
+                            <?php echo $productName; ?>
+                        </h3>
+                        <br>
+                        <img src="image/<?php echo $productImage; ?>" alt="">
+                        <br>
+                        <br>
+                        <p>
+                            <?php echo $productPrice; ?>€
+                        </p>
+                        <form method="POST">
+                            <input type="hidden" name="productId" value="<?php echo $productId ?>">
+                            <button class="btn" name="submitBtnProduct" type="submit">Adicionar Ao Carrinho</button>
+                        </form>
+                    </div>
+
+                    <?php
+                }
+            } else {
+                echo "No products found.";
+            }
+
+            // Close the database connection
+            $conn->close();
+
+        }
+
+            ?>
+
     </section>
 
 

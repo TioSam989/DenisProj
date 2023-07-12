@@ -63,6 +63,8 @@ function clearCart($userId)
     $deleteCartItemsQuery = "DELETE FROM carrinho WHERE user_id = $userId";
     mysqli_query($conn, $deleteCartItemsQuery);
     mysqli_close($conn);
+
+    
 }
 
 // Function to get the total quantity of products in the cart
