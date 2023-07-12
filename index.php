@@ -257,99 +257,104 @@ if (isset($_SESSION['admin'])) {
             <?php
 
             if(isset($_POST['submitBtnProduct'])){
-                $crrUserId = $_SESSION['user'];
-                $crrProduct = $_POST['productId'];
-                addToCart($crrUserId, $crrProduct, '1');
-                
+
+                $userId = $_SESSION['user'];
+                $productId = $_POST['productId'];
+                $quantity = 1;
+
+                addToCart($userId, $productId, $quantity);
+                        
+                        
             }else{
 
 
-            $sql = "SELECT * FROM produtos";
-            $result = $conn->query($sql);
+                $sql = "SELECT * FROM produtos";
+                $result = $conn->query($sql);
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $productId = $row['id'];
-                    $productName = $row['nome'];
-                    $productImage = $row['img'];
-                    $productPrice = $row['preco'];
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $productId = $row['id'];
+                        $productName = $row['nome'];
+                        $productImage = $row['img'];
+                        $productPrice = $row['preco'];
 
-                    consolar($productId);
-                    ?>
+                        consolar($productId);
+                        ?>
 
-                    <div class="box">
-                        <h3 class="title">
-                            <?php echo $productName; ?>
-                        </h3>
-                        <br>
-                        <img src="image/<?php echo $productImage; ?>" alt="">
-                        <br>
-                        <br>
-                        <p>
-                            <?php echo $productPrice; ?>€
-                        </p>
-                        <form method="POST">
-                            <input type="hidden" name="productId" value="<?php echo $productId ?>">
-                            <button class="btn" name="submitBtnProduct" type="submit">Adicionar Ao Carrinho</button>
-                        </form>
-                    </div>
+                        <div class="box">
+                            <h3 class="title">
+                                <?php echo $productName; ?>
+                            </h3>
+                            <br>
+                            <img src="image/<?php echo $productImage; ?>" alt="">
+                            <br>
+                            <br>
+                            <p>
+                                <?php echo $productPrice; ?>€
+                            </p>
+                            <form method="POST">
+                                <input type="hidden" name="productId" value="<?php echo $productId ?>">
+                                
+                                <button class="btn" name="submitBtnProduct" type="submit" <?php if(!isset($_SESSION['user'])){ ?> disabled="disabled" style="background-color:darkgrey" <?php  } ?> ><?php if(isset($_SESSION['user'])){  ?> Adionar ao carrinho <?php  }else{  ?> Logue para comprar <?php  } ?></button>
+                            </form>
+                        </div>
 
-                    <?php
+                        <?php
+                    }
+                } else {
+                    echo "No products found.";
                 }
-            } else {
-                echo "No products found.";
+
+                // Close the database connection
+                $conn->close();
+
             }
 
-            // Close the database connection
-            $conn->close();
+                    ?>
 
-        }
-
-            ?>
-
-    </section>
+            </section>
 
 
-    <div class="separador"></div>
+            <div class="separador"></div>
 
-    <section class="contact" id="contact">
+            <section class="contact" id="contact">
 
-        <h1 class="heading"> <span>Localização</span></h1>
+                <h1 class="heading"> <span>Localização</span></h1>
 
-        <div class="row">
-            <div class="image">
-                <a
-                    href="https://www.google.com/maps/place/R.+Dami%C3%A3o+de+G%C3%B3is+27,+2650-320+Amadora/@38.7653303,-9.2098786,17z/data=!3m1!4b1!4m6!3m5!1s0xd1ecd3ea638e0ff:0x19675f79c36ce1ea!8m2!3d38.7653261!4d-9.2073037!16s%2Fg%2F11c22qlphm?entry=ttu">
-                    <div class="QMbmRe"
-                        style="background-image:url('https://maps.googleapis.com/maps/api/staticmap?scale=1&amp;size=1600x900&amp;style=feature:poi.business|visibility:off&amp;style=feature:water|visibility:simplified&amp;style=feature:road|element:labels.icon|visibility:off&amp;style=feature:road.highway|element:labels|saturation:-90|lightness:25&amp;format=jpg&amp;language=pt-PT&amp;region=PT&amp;markers=color:0xddaa44|38.7653328,-9.2072891&amp;zoom=16&amp;client=google-presto&amp;signature=i3Q8ZE71J_LJDLa5kI4oMxylTzY')"
-                        title="Mapa a mostrar a localização da empresa."></div>
-                </a>
-            </div>
+                <div class="row">
+                    <div class="image">
+                        <a
+                            href="https://www.google.com/maps/place/R.+Dami%C3%A3o+de+G%C3%B3is+27,+2650-320+Amadora/@38.7653303,-9.2098786,17z/data=!3m1!4b1!4m6!3m5!1s0xd1ecd3ea638e0ff:0x19675f79c36ce1ea!8m2!3d38.7653261!4d-9.2073037!16s%2Fg%2F11c22qlphm?entry=ttu">
+                            <div class="QMbmRe"
+                                style="background-image:url('https://maps.googleapis.com/maps/api/staticmap?scale=1&amp;size=1600x900&amp;style=feature:poi.business|visibility:off&amp;style=feature:water|visibility:simplified&amp;style=feature:road|element:labels.icon|visibility:off&amp;style=feature:road.highway|element:labels|saturation:-90|lightness:25&amp;format=jpg&amp;language=pt-PT&amp;region=PT&amp;markers=color:0xddaa44|38.7653328,-9.2072891&amp;zoom=16&amp;client=google-presto&amp;signature=i3Q8ZE71J_LJDLa5kI4oMxylTzY')"
+                                title="Mapa a mostrar a localização da empresa."></div>
+                        </a>
+                    </div>
 
-        </div>
+                </div>
 
-        <br>
-    </section>
+                <br>
+            </section>
 
-    <div class="separador2"></div>
+            <div class="separador2"></div>
 
-    <section class="footer">
+            <section class="footer">
 
-        <div class="share">
-            <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
-            <a href="https://pt.linkedin.com/" class="fab fa-linkedin"></a>
-            <a href="https://twitter.com/" class="fab fa-twitter"></a>
-            <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
-            <a href="https://www.pinterest.pt/" class="fab fa-pinterest"></a>
-        </div>
-        <div class="credit"> created by <span>Denis Salajan</span> | all rights reserved</div>
-    </section>
+                <div class="share">
+                    <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+                    <a href="https://pt.linkedin.com/" class="fab fa-linkedin"></a>
+                    <a href="https://twitter.com/" class="fab fa-twitter"></a>
+                    <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                    <a href="https://www.pinterest.pt/" class="fab fa-pinterest"></a>
+                </div>
+                <div class="credit"> created by <span>Denis Salajan</span> | all rights reserved</div>
+            </section>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-</body>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+                integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script type="text/javascript" src="js/main.js"></script>
+        </body>
 
-</html>
+        </html>

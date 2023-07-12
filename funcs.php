@@ -19,30 +19,49 @@ function consolar($msg)
 }
 
 // Function to add a product to the cart
+// Your existing code...
+
+// Function to add a product to the cart
 function addToCart($userId, $productId, $quantity)
 {
-
     global $conn;
 
+    $carrinhoVazioQuery = mysqli_query($conn, "SELECT * FROM carrinho WHERE user_id=$userId ") or die("Nao foi possivel executar o seu pedido");
+    $itemDoCarrinhoQuery = mysqli_query($conn, "SELECT * FROM carrinho WHERE user_id=$userId AND product_id=$productId ") or die("Nao foi possivel executar o seu pedido");
+    $resultCarrinho = mysqli_fetch_assoc($carrinhoVazioQuery);
+    $resultItemDoCarrinho = mysqli_fetch_assoc($itemDoCarrinhoQuery);
 
-    $existingCartItemQuery = "SELECT * FROM carrinho WHERE user_id = $userId AND product_id = $productId";
-    $existingCartItemResult = mysqli_query($conn, $existingCartItemQuery);
+    if (is_array($resultCarrinho) && !empty($resultCarrinho)) { //ja tem algo no carrinho
 
-    if (mysqli_num_rows($existingCartItemResult) > 0) {
-        $existingCartItem = mysqli_fetch_assoc($existingCartItemResult);
-        $newQuantity = $existingCartItem['quantity'] + $quantity;
 
-        $updateQuantityQuery = "UPDATE carrinho SET quantity = $newQuantity WHERE id = " . $existingCartItem['id'];
-        mysqli_query($conn, $updateQuantityQuery);
-    } else {
-        $insertCartItemQuery = "INSERT INTO carrinho (user_id, product_id, quantidade) VALUES ($userId, $productId, $quantity)";
-        mysqli_query($conn, $insertCartItemQuery);
+        if (is_array($resultItemDoCarrinho) && !empty($resultItemDoCarrinho)) { //artigo tentado comprar é o mesmo q tem no carrinho, so adicionar +1
+
+            $atualIdDoCarrinho = $resultItemDoCarrinho['id'];
+            $result = mysqli_query($conn, "UPDATE carrinho SET quantidade  = quantidade + $quantity WHERE id = $atualIdDoCarrinho;");
+            echo '<script>window.location.href = "./cartTest.php";</script>';
+            exit();
+
+        } else { //senao adiciona no carrinho ja com quantidade desejada
+
+            $result = mysqli_query($conn, "INSERT INTO carrinho (user_id, product_id, quantidade) VALUES ('$userId', '$productId', '$quantity');");
+            echo '<script>window.location.href = "./cartTest.php";</script>';
+            exit();
+
+        }
+
+    } else { //senao tiver nada no carrinho, entao adiciona no carrinho ja com quantidade desejada
+
+        $result = mysqli_query($conn, "INSERT INTO carrinho (user_id, product_id, quantidade) VALUES ('$userId', '$productId', '$quantity');");
+        echo '<script>window.location.href = "./cartTest.php";</script>';
+        exit();
+
+
     }
 
-    mysqli_close($conn);
+
+
 }
 
-// Function to remove a product from the cart
 function removeFromCart($userId, $productId)
 {
 
@@ -64,7 +83,7 @@ function clearCart($userId)
     mysqli_query($conn, $deleteCartItemsQuery);
     mysqli_close($conn);
 
-    
+
 }
 
 // Function to get the total quantity of products in the cart
