@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2023 at 01:49 AM
+-- Generation Time: Jul 13, 2023 at 11:46 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -41,10 +41,6 @@ CREATE TABLE `avaliacoes` (
 INSERT INTO `avaliacoes` (`id`, `nome`, `email`, `avaliacao`) VALUES
 (16, 'TESTE AVALIACOES', '45c8153e28f062d3baf18d9a46a5469d', 'TESTE AVALIACOES'),
 (22, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'dwadsadasdwaasd'),
-(23, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'teste'),
-(24, 'Denis Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'dwadasd'),
-(25, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'dwadasdad'),
-(26, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'dwadasdasd'),
 (28, 'dwsada', 'ee930ad6bba7ba59f4042fa612bf940e', 'mui bom'),
 (29, 'Davi ', '4f64c9f81bb0d4ee969aaf7b4a5a6f40', 'mui bom');
 
@@ -60,16 +56,17 @@ CREATE TABLE `canalizador` (
   `email` varchar(50) NOT NULL,
   `telemovel` varchar(20) NOT NULL,
   `experiência` text NOT NULL,
-  `motivação` text NOT NULL
+  `motivação` text NOT NULL,
+  `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `canalizador`
 --
 
-INSERT INTO `canalizador` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`) VALUES
-(7, 'Denis Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'teste', 'teste'),
-(8, 'davi', 'b79aca0daf806be914c2631e8ec741bd', '0f03c83f99f9a84c2a28', 'mais q vc', 'toda');
+INSERT INTO `canalizador` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`, `status`) VALUES
+(7, 'Denis Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'teste', 'teste', 'rejeitado'),
+(8, 'davi', 'b79aca0daf806be914c2631e8ec741bd', '0f03c83f99f9a84c2a28', 'mais q vc', 'toda', 'em espera');
 
 -- --------------------------------------------------------
 
@@ -83,16 +80,17 @@ CREATE TABLE `carpinteiro` (
   `email` varchar(50) NOT NULL,
   `telemovel` varchar(20) NOT NULL,
   `experiência` text NOT NULL,
-  `motivação` text NOT NULL
+  `motivação` text NOT NULL,
+  `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `carpinteiro`
 --
 
-INSERT INTO `carpinteiro` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`) VALUES
-(5, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', '4162075801482ea374dd', 'teste', 'teste'),
-(8, 'david', '1f37a7617646c52f047d1196dea76c71', '734034c6d0fcd8eb40cd', 'nenhuma ainda', 'dinheiro');
+INSERT INTO `carpinteiro` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`, `status`) VALUES
+(5, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', '4162075801482ea374dd', 'teste', 'teste', 'em espera'),
+(8, 'david', '1f37a7617646c52f047d1196dea76c71', '734034c6d0fcd8eb40cd', 'nenhuma ainda', 'dinheiro', 'em espera');
 
 -- --------------------------------------------------------
 
@@ -103,16 +101,17 @@ INSERT INTO `carpinteiro` (`id`, `nome`, `email`, `telemovel`, `experiência`, `
 CREATE TABLE `carrinho` (
   `id` int(11) NOT NULL,
   `quantidade` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
+  `uid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `carrinho`
 --
 
-INSERT INTO `carrinho` (`id`, `quantidade`, `user_id`, `product_id`) VALUES
-(22, 5, 1, 2);
+INSERT INTO `carrinho` (`id`, `quantidade`, `uid`, `pid`) VALUES
+(59, 2, 1, 1),
+(60, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -150,16 +149,17 @@ CREATE TABLE `eletricista` (
   `email` varchar(50) NOT NULL,
   `telemovel` varchar(20) NOT NULL,
   `experiência` text NOT NULL,
-  `motivação` text NOT NULL
+  `motivação` text NOT NULL,
+  `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `eletricista`
 --
 
-INSERT INTO `eletricista` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`) VALUES
-(3, 'TESTE ELETRICISTA', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'TESTE ELETRICISTA', 'TESTE ELETRICISTA'),
-(8, 'davi', 'davi@mail.com', '936350279', 'negativa', 'positiva');
+INSERT INTO `eletricista` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`, `status`) VALUES
+(3, 'TESTE ELETRICISTA', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'TESTE ELETRICISTA', 'TESTE ELETRICISTA', 'em espera'),
+(8, 'davi', 'davi@mail.com', '936350279', 'negativa', 'positiva', 'rejeitado');
 
 -- --------------------------------------------------------
 
@@ -173,18 +173,19 @@ CREATE TABLE `pintor` (
   `email` varchar(50) NOT NULL,
   `telemovel` varchar(20) NOT NULL,
   `experiência` text NOT NULL,
-  `motivação` text NOT NULL
+  `motivação` text NOT NULL,
+  `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pintor`
 --
 
-INSERT INTO `pintor` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`) VALUES
-(6, 'TESTE PINTOR', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'TESTE PINTOR', 'TESTE PINTOR'),
-(7, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', '4162075801482ea374dd', 'teste', 'teste'),
-(8, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'teste', 'davi'),
-(9, 'dwsadsa', '13573a955b3462232d605cd11255a24d', '734034c6d0fcd8eb40cd', 'oito anos na area', 'ficar longe dos filhos');
+INSERT INTO `pintor` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`, `status`) VALUES
+(6, 'TESTE PINTOR', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'TESTE PINTOR', 'TESTE PINTOR', 'aceito'),
+(7, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', '4162075801482ea374dd', 'teste', 'teste', 'em espera'),
+(8, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'teste', 'davi', 'aceito'),
+(9, 'dwsadsa', '13573a955b3462232d605cd11255a24d', '734034c6d0fcd8eb40cd', 'oito anos na area', 'ficar longe dos filhos', 'rejeitado');
 
 -- --------------------------------------------------------
 
@@ -218,15 +219,16 @@ CREATE TABLE `usuarios` (
   `Nome` varchar(200) NOT NULL,
   `Email` varchar(200) NOT NULL,
   `Telemovel` int(11) NOT NULL,
-  `Password` varchar(200) NOT NULL
+  `Password` varchar(200) NOT NULL,
+  `type` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `Nome`, `Email`, `Telemovel`, `Password`) VALUES
-(1, 'dnsaudbuhew', 'davi@mail.com', 936382468, '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `usuarios` (`id`, `Nome`, `Email`, `Telemovel`, `Password`, `type`) VALUES
+(1, 'dnsaudbuhew', 'davi@mail.com', 936382468, '21232f297a57a5a743894a0e4a801fc3', 'free');
 
 --
 -- Indexes for dumped tables
@@ -254,9 +256,7 @@ ALTER TABLE `carpinteiro`
 -- Indexes for table `carrinho`
 --
 ALTER TABLE `carrinho`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_id` (`user_id`),
-  ADD UNIQUE KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `contactos`
@@ -314,7 +314,7 @@ ALTER TABLE `carpinteiro`
 -- AUTO_INCREMENT for table `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `contactos`
