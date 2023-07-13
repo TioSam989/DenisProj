@@ -3,7 +3,7 @@
 include("conexao.php");
 // Dados recebidos do formulário
 $nome = $_POST['nome'];
-$email = md5($_POST['email']);
+$email = ($_POST['email']);
 $avaliacao = $_POST['avaliacao'];
 echo $nome." ".$email." ".$telemovel." ".$avaliacao;
 // Monta a consulta SQL para inserir os dados na base de dados

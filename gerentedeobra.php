@@ -12,8 +12,8 @@ if (isset($_POST['submitCanalizadorBtn'])) {
 
     // Dados recebidos do formulário
     $nome = $_POST['nome'];
-    $email = md5($_POST['email']);
-    $telemovel = md5($_POST['telemovel']);
+    $email = ($_POST['email']);
+    $telemovel = ($_POST['telemovel']);
     $experiência = $_POST['experiência'];
     $motivação = $_POST['motivação'];
     echo $nome . " " . $email . " " . $telemovel . " " . $experiência . " " . $motivação;
