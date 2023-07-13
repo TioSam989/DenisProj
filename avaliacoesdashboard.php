@@ -1,6 +1,9 @@
 <?php 
 session_start();
 
+include_once('funcs.php');
+include_once('conexao.php');
+
 if(!isset($_SESSION['admin'])){
     header('Location: ./paineladmin.php');
 }
@@ -52,18 +55,34 @@ if(!isset($_SESSION['admin'])){
           </div>
       </div>
 
+      <?php
+
+$queryTotal = "SELECT COUNT(*) AS count FROM avaliacoes";
+
+$result1 = mysqli_query($conn, $queryTotal);
+
+$totalavaliacoes = 0;
+
+if ($result1) {
+    $row = mysqli_fetch_assoc($result1);
+    $totalavaliacoes = $row['count'];
+}
+
+
+?>
+
   </section>
   <div class="box-container">
 
     <div class="box">
         <br>
+        <p>
+                    <?php echo $totalavaliacoes; ?>
+                </p>
          <p>Avaliações</p>
     </div>
 
-    <div class="box">
-        <br>
-        <p>Eliminadas</p>
-    </div>
+    
 
   </div>
   <br>
@@ -82,7 +101,17 @@ if(!isset($_SESSION['admin'])){
 
 
 
+<?php
 
+
+
+if (isset($_POST['delete'])) {
+    $qualAvaliacao = $_POST['avaliacao'];
+    $result = mysqli_query($conn, "DELETE FROM avaliacoes WHERE id = $qualAvaliacao;");
+    echo '<script>window.location.href = "./avaliacoesdashboard.php";</script>';
+    exit();
+}
+?>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

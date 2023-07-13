@@ -15,7 +15,7 @@ if(isset($_POST['submitPintorBtn'])){
     $motivação = $_POST['motivação'];
     echo $nome." ".$email." ".$telemovel." ".$experiência." ".$motivação;
     // Monta a consulta SQL para inserir os dados na base de dados
-    $sql = "INSERT INTO pintor (nome, email, telemovel, experiência, motivação) VALUES ('$nome', '$email', '$telemovel', '$experiência', '$motivação')";
+    $sql = "INSERT INTO pintor (nome, email, telemovel, experiência, motivação, status) VALUES ('$nome', '$email', '$telemovel', '$experiência', '$motivação', 'em espera')";
     
     
     if ($conn->query($sql) === TRUE) {

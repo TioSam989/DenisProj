@@ -1,6 +1,9 @@
 <?php 
 session_start();
 
+include_once('funcs.php');
+include_once('conexao.php');
+
 if(!isset($_SESSION['admin'])){
     header('Location: ./index.php');
 }
@@ -55,22 +58,60 @@ if(!isset($_SESSION['admin'])){
   </section>
   <div class="box-container">
 
-    <div class="box">
-        <br>
-         <p>Candidaturas</p>
-    </div>
+            <?php
 
-    <div class="box">
-        <br>
-        <p>Aceites</p>
-    </div>
+            $queryEspera = "SELECT COUNT(*) AS count FROM eletricista WHERE status = 'em espera'";
+            $queryAceitos = "SELECT COUNT(*) AS count FROM eletricista WHERE status = 'aceito'";
+            $queryRejeitados = "SELECT COUNT(*) AS count FROM eletricista WHERE status = 'rejeitado'";
 
-    <div class="box">
-        <br>
-        <p>Rejeitadas</p>
-    </div>
+            $result1 = mysqli_query($conn, $queryEspera);
+            $result2 = mysqli_query($conn, $queryAceitos);
+            $result3 = mysqli_query($conn, $queryRejeitados);
 
-  </div>
+            $totalEmEspera = 0;
+            $totalAceitos = 0;
+            $totalRejeitados = 0;
+
+            if ($result1) {
+                $row = mysqli_fetch_assoc($result1);
+                $totalEmEspera = $row['count'];
+            }
+            if ($result2) {
+                $row = mysqli_fetch_assoc($result2);
+                $totalAceitos = $row['count'];
+            }
+            if ($result3) {
+                $row = mysqli_fetch_assoc($result3);
+                $totalRejeitados = $row['count'];
+            }
+
+            ?>
+
+            <div class="box">
+                <br>
+                <p>
+                    <?php echo $totalEmEspera; ?>
+                </p>
+                <p>emEspera</p>
+            </div>
+
+            <div class="box">
+                <br>
+                <p>
+                    <?php echo $totalAceitos; ?>
+                </p>
+                <p>Aceites</p>
+            </div>
+
+            <div class="box">
+                <br>
+                <p>
+                    <?php echo $totalRejeitados; ?>
+                </p>
+                <p>Rejeitadas</p>
+            </div>
+
+        </div>
   <br>
   </section>
 <br>
@@ -87,6 +128,27 @@ if(!isset($_SESSION['admin'])){
 </section>
 
 
+
+<?php
+
+
+
+if (isset($_POST['aprove'])) {
+    $user = $_POST['user'];
+    $result = mysqli_query($conn, "UPDATE canalizador SET status  = 'aceito' WHERE id = $user;");
+    echo '<script>window.location.href = "./canalizadordashboard.php";</script>';
+    exit();
+}
+
+
+if (isset($_POST['reject'])) {
+    $user = $_POST['user'];
+    $result = mysqli_query($conn, "UPDATE canalizador SET status  = 'rejeitado' WHERE id = $user;");
+    echo '<script>window.location.href = "./canalizadordashboard.php";</script>';
+    exit();
+}
+
+?>
 
 
 

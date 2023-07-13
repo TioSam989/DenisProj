@@ -3,14 +3,14 @@
 
 
 <?php
-if (isset($_SESSION['admin'])) { 
+if (isset($_SESSION['admin'])) {
     ?>
 
-                <?php
-                if (!(isset($_SESSION['admin']))) {
-                    header("Location:./index.php");
-                }
-                ?>
+    <?php
+    if (!(isset($_SESSION['admin']))) {
+        header("Location:./index.php");
+    }
+    ?>
 
     <?php
 }
@@ -26,7 +26,7 @@ if (isset($_SESSION['admin'])) {
         } else { //se nao for o ADM logado ele vai mostrar as coisas a baixo
             ?>
 
-           
+
 
             <!-- Header with full-height image -->
             <?php
@@ -53,7 +53,7 @@ if (isset($_SESSION['admin'])) {
                         echo " <div  id='$nomeUs'>";
                         echo "<div>";
                         echo "  <div >";
-                        echo "    <h2><strong>".$linha['id']." - </strong>" . $linha['Nome'] . "</h2>";
+                        echo "    <h2><strong>" . $linha['id'] . " - </strong>" . $linha['Nome'] . "</h2>";
 
                         echo "    <p ><strong>Email: </strong>" . $linha['Email'];
                         echo " <p><strong>Telemovel: </strong>" . $linha['Telemovel'] . "</p>";

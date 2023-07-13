@@ -10,6 +10,15 @@ $(document).ready( function(){
                     <div class="box">
                         <h3>${canalizador.nome}</h3>
                         <p>${canalizador.motivação}</p>
+                        <p>${canalizador.status}</p>
+                        <p>${canalizador.status == 'em espera' ? `
+                            <form method="POST">
+                            <input type="hidden" name="user" value="${canalizador.id}" />
+                            <button type="submit" name="aprove">aprovar</button>
+                            <button type="submit" name="reject">rejeitar</button>
+                            </form>` 
+                          : ''}
+                        </p>
                     </div>
                 `)
             }
