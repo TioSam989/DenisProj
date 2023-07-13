@@ -118,61 +118,109 @@ if (isset($_SESSION['admin'])) {
         <h1>Shopping Cart</h1>
 
         <div class="shopping-cart">
+            <?php
+            if (is_array($cartItems) && !empty($cartItems)) {
+                ?>
 
-            <div class="column-labels">
-                <label class="product-image">Image</label>
-                <label class="product-details">Product</label>
-                <label class="product-price">Price</label>
-                <label class="product-quantity">Quantity</label>
-                <label class="product-removal">Remove</label>
-                <label class="product-line-price">Total</label>
-            </div>
-
+                <div class="column-labels">
+                    <label class="product-image">Image</label>
+                    <label class="product-details">Product</label>
+                    <label class="product-price">Price</label>
+                    <label class="product-quantity">Quantity</label>
+                    <label class="product-removal">Remove</label>
+                    <label class="product-line-price">Total</label>
+                </div>
+                <?php
+            }
+            ?>
             <div class="cart-items">
-                <?php foreach ($cartItems as $item) { ?>
-                    <div class="product">
-                        <div class="product-image">
-                            <img src="image/<?php echo $item['image']; ?>">
+
+                <?php
+                if (is_array($cartItems) && !empty($cartItems)) {
+
+
+                    ?>
+
+                    <?php foreach ($cartItems as $item) { ?>
+                        <div class="product">
+                            <div class="product-image">
+                                <img src="image/<?php echo $item['image']; ?>">
+                            </div>
+                            <div class="product-details">
+                                <p class="product-title">
+                                    <?php echo $item['name']; ?>
+                                </p>
+                            </div>
+                            <div class="product-price">
+                                <?php echo $item['price']; ?>
+                            </div>
+                            <div class="product-quantity">
+                                <input type="number" value="<?php echo $item['quantity']; ?>" min="1">
+                            </div>
+                            <div class="product-removal">
+                                <button class="remove-product">
+                                    Remove
+                                </button>
+                            </div>
+                            <div class="product-line-price">
+                                <?php echo $item['price'] * $item['quantity']; ?>
+                                <?php $totalPrice += $item['price'] * $item['quantity'] ?>
+                            </div>
                         </div>
-                        <div class="product-details">
-                            <p class="product-title">
-                                <?php echo $item['name']; ?>
-                            </p>
-                        </div>
-                        <div class="product-price">
-                            <?php echo $item['price']; ?>
-                        </div>
-                        <div class="product-quantity">
-                            <input type="number" value="<?php echo $item['quantity']; ?>" min="1">
-                        </div>
-                        <div class="product-removal">
-                            <button class="remove-product">
-                                Remove
-                            </button>
-                        </div>
-                        <div class="product-line-price">
-                            <?php echo $item['price'] * $item['quantity']; ?>
-                            <?php $totalPrice += $item['price'] * $item['quantity'] ?>
-                        </div>
-                    </div>
-                <?php } ?>
+                    <?php }
+
+                } else {
+
+
+
+                }
+
+
+                ?>
             </div>
 
             <div class="totals">
 
 
+                <?php
+                if (!is_array($cartItems) || empty($cartItems)) {
 
-                <div class="totals-item totals-item-total">
-                    <label>Total Carrinho</label>
-                    <div class="totals-value" id="cart-total">
-                        <?php echo $totalPrice; ?>
+                    ?>
+
+                    <div class="totals-item totals-item-total">
+                        carrinho vazio
                     </div>
-                </div>
 
-            </div>
+                    <?php
+
+                } else {
+
+                    ?>
+                    <div class="totals-item totals-item-total">
+                        <label>Total Carrinho</label>
+                        <div class="totals-value" id="cart-total">
+                            <?php echo $totalPrice; ?>
+                        </div>
+                    </div>
+                    <?php
+
+                }
 
 
-            <div id="paypal-button-container"></div>
+
+
+                ?>
+               
+
+
+            <?php if ($totalPrice != 0) {
+                ?>
+
+                <div id="paypal-button-container"></div>
+
+                <?php
+            }
+            ?>
 
             <script>
                 // Render the PayPal button into #paypal-button-container

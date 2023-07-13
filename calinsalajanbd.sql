@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2023 at 11:46 AM
+-- Generation Time: Jul 13, 2023 at 01:19 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -66,7 +66,7 @@ CREATE TABLE `canalizador` (
 
 INSERT INTO `canalizador` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`, `status`) VALUES
 (7, 'Denis Salajan', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'teste', 'teste', 'rejeitado'),
-(8, 'davi', 'b79aca0daf806be914c2631e8ec741bd', '0f03c83f99f9a84c2a28', 'mais q vc', 'toda', 'em espera');
+(8, 'davi', 'b79aca0daf806be914c2631e8ec741bd', '0f03c83f99f9a84c2a28', 'mais q vc', 'toda', 'aceito');
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,7 @@ CREATE TABLE `carpinteiro` (
 
 INSERT INTO `carpinteiro` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`, `status`) VALUES
 (5, 'Denis Ricardo Salajan', '45c8153e28f062d3baf18d9a46a5469d', '4162075801482ea374dd', 'teste', 'teste', 'em espera'),
-(8, 'david', '1f37a7617646c52f047d1196dea76c71', '734034c6d0fcd8eb40cd', 'nenhuma ainda', 'dinheiro', 'em espera');
+(8, 'david', '1f37a7617646c52f047d1196dea76c71', '734034c6d0fcd8eb40cd', 'nenhuma ainda', 'dinheiro', 'aceito');
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,7 @@ CREATE TABLE `eletricista` (
 --
 
 INSERT INTO `eletricista` (`id`, `nome`, `email`, `telemovel`, `experiência`, `motivação`, `status`) VALUES
-(3, 'TESTE ELETRICISTA', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'TESTE ELETRICISTA', 'TESTE ELETRICISTA', 'em espera'),
+(3, 'TESTE ELETRICISTA', '45c8153e28f062d3baf18d9a46a5469d', 'd8da1f674a704403f301', 'TESTE ELETRICISTA', 'TESTE ELETRICISTA', 'aceito'),
 (8, 'davi', 'davi@mail.com', '936350279', 'negativa', 'positiva', 'rejeitado');
 
 -- --------------------------------------------------------
@@ -228,7 +228,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `Nome`, `Email`, `Telemovel`, `Password`, `type`) VALUES
-(1, 'dnsaudbuhew', 'davi@mail.com', 936382468, '21232f297a57a5a743894a0e4a801fc3', 'free');
+(1, 'Davi Neves da Costa Santos', 'davi@mail.com', 936382468, '21232f297a57a5a743894a0e4a801fc3', 'free');
 
 --
 -- Indexes for dumped tables

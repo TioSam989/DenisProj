@@ -131,9 +131,14 @@ if (isset($_SESSION['admin'])) {
 
         </div>
 
+        <?php if ($totalPrice != 0) {
+            ?>
 
-        <div id="paypal-button-container"></div>
+            <div id="paypal-button-container"></div>
 
+            <?php
+        } 
+        ?>
         <script>
             // Render the PayPal button into #paypal-button-container
             paypal_sdk.Buttons({
@@ -176,9 +181,6 @@ if (isset($_SESSION['admin'])) {
 
 
     </div>
-
-    meh
-
 
 </body>
 

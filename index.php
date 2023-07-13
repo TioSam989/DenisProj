@@ -263,30 +263,26 @@ if (isset($_SESSION['user'])) {
                 $productId = $_POST['productId'];
                 $quantity = 1;
 
-
                 $carrinhoVazioQuery = mysqli_query($conn, "SELECT * FROM carrinho WHERE uid=$userId ") or die("Nao foi possivel executar o seu pedido");
-                $itemDoCarrinhoQuery = mysqli_query($conn, "SELECT * FROM carrinho WHERE uid=1 AND pid='$productId' ") or die("Nao foi possivel executar o seu pedido");
+                $itemDoCarrinhoQuery = mysqli_query($conn, "SELECT * FROM carrinho WHERE uid=$userId AND pid='$productId' ") or die("Nao foi possivel executar o seu pedido");
                 $resultCarrinho = mysqli_fetch_assoc($carrinhoVazioQuery);
                 $resultItemDoCarrinho = mysqli_fetch_assoc($itemDoCarrinhoQuery);
 
     if (is_array($resultCarrinho) && !empty($resultCarrinho)) { //ja tem algo no carrinho
 
-
         if (is_array($resultItemDoCarrinho) && !empty($resultItemDoCarrinho)) { //artigo tentado comprar é o mesmo q tem no carrinho, so adicionar +1
 
-
-
             $atualIdDoCarrinho = $resultItemDoCarrinho['id'];
-            $result = mysqli_query($conn, "UPDATE carrinho SET quantidade  = quantidade + $quantity WHERE id = $atualIdDoCarrinho;");
+            $result = mysqli_query($conn, "UPDATE carrinho SET quantidade  = quantidade+$quantity WHERE id = $atualIdDoCarrinho;");
             echo '<script>window.location.href = "./carrinhodecompras.php";</script>';
             exit();
 
         } else { //senao adiciona no carrinho ja com quantidade desejada
 
-
+            $atualIdDoCarrinho = $resultItemDoCarrinho['id'];
             $result = mysqli_query($conn, "INSERT INTO carrinho (uid, pid, quantidade) VALUES ('$userId', '$productId', '$quantity');");
-        echo '<script>window.location.href = "./carrinhodecompras.php";</script>';
-        exit();
+            echo '<script>window.location.href = "./carrinhodecompras.php";</script>';
+            exit();
 
         }
 
