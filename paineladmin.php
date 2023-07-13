@@ -1,9 +1,22 @@
 <?php 
 session_start();
 
+include_once('funcs.php');
+include_once('conexao.php');
+
 if(!isset($_SESSION['admin'])){
     header('Location: ./index.php');
 }
+
+$queryTotalUsers = "SELECT COUNT(*) AS count FROM usuarios";
+$result1 = mysqli_query($conn, $queryTotalUsers);
+if ($result1) {
+    $row = mysqli_fetch_assoc($result1);
+    $TotalUsuarios = $row['count'];
+}else{
+    $TotalUsuarios = 0;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +58,7 @@ if(!isset($_SESSION['admin'])){
 <br>
 
 <section>
+    <h3>total usuarios <?php echo $TotalUsuarios; ?></h3>
     <?php include('usersPage.php'); ?>
 </section>
 

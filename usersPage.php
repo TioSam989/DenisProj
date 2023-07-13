@@ -43,7 +43,6 @@ if (isset($_SESSION['admin'])) {
                 $resultado = mysqli_query($conn, "SELECT * FROM usuarios "); //uma query pra selecionar todos os items existentes na loja de chocolate
                 $linha = mysqli_fetch_assoc($resultado); //arrumar os dados recebidos na query anteior em arrays
     
-
                 if (is_array($linha) && !empty($linha)) { //verificar se realmente ha dados
                     while ($linha) { // enquanto tiver daoos pra mostrar ele vai mostrar na tela
                         $id = $linha['id'];
@@ -60,8 +59,6 @@ if (isset($_SESSION['admin'])) {
                         echo "<div >";
 
                         echo "</div>";
-
-
 
                         echo "</div>";
                         echo " </div>";
@@ -89,7 +86,6 @@ if (isset($_SESSION['admin'])) {
         </div>
 
         </div>
-
 
         <?php
         }
