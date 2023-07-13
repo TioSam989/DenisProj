@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<?php include_once("./conexao.php") ?>
+<?php
+include_once("./conexao.php");
+include_once('funcs.php');
+?>
 
 
 <?php
@@ -31,6 +34,15 @@ if (isset($_SESSION['admin'])) {
             <!-- Header with full-height image -->
             <?php
             if ($conn) { // verificar se ha conexao com a DB
+    
+                if (isset($_POST['submitUpdateUser'])) {
+                    $crrUid = $_POST['uid'];
+                    echo '<script>window.location.href = "./updateUserDashboard.php?uid='.$crrUid.'";</script>';
+                    exit();
+                }
+
+
+
                 echo "<div>";
 
                 echo "<div >";
@@ -56,6 +68,10 @@ if (isset($_SESSION['admin'])) {
 
                         echo "    <p ><strong>Email: </strong>" . $linha['Email'];
                         echo " <p><strong>Telemovel: </strong>" . $linha['Telemovel'] . "</p>";
+                        echo "<form method='POST'>";
+                        echo "<input type='hidden' name='uid' value='" . $id . "' />";
+                        echo "<button name='submitUpdateUser' type='submit'>Update</button>";
+                        echo "<form/>";
                         echo "<div >";
 
                         echo "</div>";
