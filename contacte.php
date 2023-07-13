@@ -28,12 +28,29 @@ if(isset($_SESSION['admin'])){
     <a href="index.php" class="logo">Calin Salajan</a>
 
     <nav class="navbar">
-        <a href="index.php">Inicio</a>
-        <a href="aboutus.html">Sobre</a>
-        <a href="projetospage.html">Projetos</a>
-        <a href="contacte.php">Contacte</a>
-        <a href="carrinhodecompras.php">Carrinho</a>
-    </nav>
+            <a href="index.php">Inicio</a>
+            <a href="aboutus.html">Sobre</a>
+            <a href="projetospage.html">Projetos</a>
+            <a href="contacte.php">Contacte</a>
+            <?php
+
+if (isset($_SESSION['user'])) {
+    ?>
+
+<a href="carrinhodecompras.php">Carrinho</a>
+                <a href="logout.php">Logout</a>
+
+                <?php
+            } else {
+                ?>
+
+                <a href="logout.php">Login/Registo</a>
+
+                <?php
+            }
+
+            ?>
+        </nav>
 
     <div id="menu-btn" class="fas fa-bars"></div>
 

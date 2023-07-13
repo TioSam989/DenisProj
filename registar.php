@@ -62,7 +62,7 @@ if(isset($_SESSION['admin'])){
                     sleep(2); //esperar dois segundos para recarregar a pagina
                     header("Refresh:0");
                 } else {
-                    mysqli_query($conn, "INSERT INTO usuarios(Nome, Email, Telemovel, Password) VALUES('$name','$email','$telemovel','$pass')") or die("nao foi possivel concluir a operação");
+                    mysqli_query($conn, "INSERT INTO usuarios(Nome, Email, Telemovel, Password, type) VALUES('$name','$email','$telemovel','$pass', 'free')") or die("nao foi possivel concluir a operação");
                     alertar("conta criada com exito");
                     sleep(2); //esperar dois segundos para recarregar a pagina
                     header("Location: ./login.php");
