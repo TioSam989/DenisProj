@@ -38,14 +38,14 @@ if (isset($_SESSION['admin'])) {
     $cartItems = [];
     $totalPrice = 0;
 
-    $sql = "SELECT * FROM carrinho where user_id = $userId";
+    $sql = "SELECT * FROM carrinho where uid = $userId";
     $result = mysqli_query($conn, $sql);
 
     // Check if the query was successful
     if ($result) {
         // Fetch each row from the cart table
         while ($row = mysqli_fetch_assoc($result)) {
-            $product_id = $row['product_id'];
+            $product_id = $row['pid'];
 
             // Fetch additional product information from the products table based on product_id
             $productSql = "SELECT * FROM produtos WHERE id = '$product_id'";
@@ -54,8 +54,8 @@ if (isset($_SESSION['admin'])) {
 
             // Combine the cart item data with the product information
             $cartItem = [
-                'product_id' => $row['product_id'],
-                'user_id' => $row['user_id'],
+                'product_id' => $row['pid'],
+                'user_id' => $row['uid'],
                 'quantity' => $row['quantidade'],
                 'name' => $productRow['nome'],
                 'price' => $productRow['preco'],

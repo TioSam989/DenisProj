@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2023 at 12:11 AM
+-- Generation Time: Jul 13, 2023 at 01:49 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -112,7 +112,7 @@ CREATE TABLE `carrinho` (
 --
 
 INSERT INTO `carrinho` (`id`, `quantidade`, `user_id`, `product_id`) VALUES
-(1, 2, 1, 2);
+(22, 5, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -204,7 +204,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `img`, `preco`) VALUES
-(1, 'Caneta Calin Salajan', 'PINTOR', 3),
+(1, 'Caneta Calin Salajan', 'PINTOR.webp', 3),
 (2, 'Tshirt Calin Salajan', 'PINTOR.webp', 25);
 
 -- --------------------------------------------------------
@@ -314,7 +314,7 @@ ALTER TABLE `carpinteiro`
 -- AUTO_INCREMENT for table `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `contactos`
