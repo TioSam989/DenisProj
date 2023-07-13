@@ -135,16 +135,16 @@ if(!isset($_SESSION['admin'])){
 
 if (isset($_POST['aprove'])) {
     $user = $_POST['user'];
-    $result = mysqli_query($conn, "UPDATE canalizador SET status  = 'aceito' WHERE id = $user;");
-    echo '<script>window.location.href = "./canalizadordashboard.php";</script>';
+    $result = mysqli_query($conn, "UPDATE eletricista SET status  = 'aceito' WHERE id = $user;");
+    echo '<script>window.location.href = "./eletricistadashboard.php"</script>';
     exit();
 }
 
 
 if (isset($_POST['reject'])) {
     $user = $_POST['user'];
-    $result = mysqli_query($conn, "UPDATE canalizador SET status  = 'rejeitado' WHERE id = $user;");
-    echo '<script>window.location.href = "./canalizadordashboard.php";</script>';
+    $result = mysqli_query($conn, "UPDATE eletricista SET status  = 'rejeitado' WHERE id = $user;");
+    echo '<script>window.location.href = "./eletricistadashboard.php";</script>';
     exit();
 }
 
